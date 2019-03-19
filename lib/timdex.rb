@@ -43,6 +43,26 @@ module Timdex
     parse_results(json_results, response.status)
   end
 
+  def self.retrieve(id)
+    setup
+    auth unless validate_jwt
+    @conn.token_auth(@jwt)
+    response = @conn.get do |req|
+      req.url '/api/v1/record/' + id
+      req.headers['Authorization'] = "Bearer #{@jwt}"
+    end
+    json_result = JSON.parse(response.body)
+    parse_record(json_result, response.status)
+  end
+
+  def self.parse_record(json_result, status)
+    response = {}
+    response['status'] = status
+    response['record'] = Record.new(json_result)
+    response['raw'] = json_result
+    response
+  end
+
   def self.parse_results(json_results, status)
     results = {}
     results['status'] = status

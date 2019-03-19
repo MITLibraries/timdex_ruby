@@ -42,4 +42,46 @@ class Record
   def content_type
     @record['content_type']
   end
+
+  def content_format
+    @record['content_format']
+  end
+
+  def imprint
+    @record['imprint']
+  end
+
+  def isbns
+    @record['isbns']
+  end
+
+  def issns
+    @record['issns']
+  end
+
+  def oclcs
+    @record['oclcs']
+  end
+
+  def lccn
+    @record['lccn']
+  end
+
+  # full record only
+
+  def notes
+    @record['notes']
+  end
+
+  def physical_description
+    @record['physical_description']
+  end
+
+  def languages
+    @record['languages']
+  end
+
+  def place_of_publication
+    @record['place_of_publication']
+  end
 end
