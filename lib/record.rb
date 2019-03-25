@@ -84,4 +84,8 @@ class Record
   def place_of_publication
     @record['place_of_publication']
   end
+
+  def summary
+    @record['summary']
+  end
 end
