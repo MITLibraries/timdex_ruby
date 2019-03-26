@@ -7,13 +7,13 @@ class TimdexTest < Minitest::Test
 
   # /ping
   def test_ping
-    response = ::Timdex.ping
+    response = ::Timdex.new('fake@example.com', 'asdfa-asdfa-asdfa').ping
     assert_equal('pong', response)
   end
 
   # /auth
   def test_auth
-    response = ::Timdex.auth
+    response = ::Timdex.new('fake@example.com', 'asdfa-asdfa-asdfa').auth
 
     jwt = JWT.decode(response, nil, false)
     assert_equal(1, jwt[0]['user_id'])
@@ -21,7 +21,8 @@ class TimdexTest < Minitest::Test
 
   # /search
   def test_search
-    response = ::Timdex.search("popcorn")
+    response = ::Timdex.new('fake@example.com',
+                            'asdfa-asdfa-asdfa').search('popcorn')
     assert_equal(200, response['status'])
     assert(response['hits'])
   end

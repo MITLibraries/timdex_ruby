@@ -6,32 +6,35 @@ require 'json'
 require 'jwt'
 
 # Timdex modules wraps interaction with the public TIMDEX API
-module Timdex
+class Timdex
   TIMDEX_BASE = 'https://timdex.mit.edu/api'.freeze
   TIMDEX_VERSION = '/v1'.freeze
   TIMDEX_URL = TIMDEX_BASE + TIMDEX_VERSION
-  TIMDEX_USER = ENV['TIMDEX_USER']
-  TIMDEX_PASS = ENV['TIMDEX_PASS']
 
-  def self.setup
+  def initialize(username, password)
+    @username = username
+    @password = password
+  end
+
+  def setup
     @conn = Faraday.new(url: TIMDEX_URL)
   end
 
-  def self.ping
+  def ping
     setup
     response = @conn.get('/api/v1/ping')
     JSON.parse(response.body)
   end
 
-  def self.auth
+  def auth
     setup
-    @conn.basic_auth(TIMDEX_USER, TIMDEX_PASS)
+    @conn.basic_auth(@username, @password)
     response = @conn.get('/api/v1/auth')
 
     @jwt = JSON.parse(response.body)
   end
 
-  def self.search(term)
+  def search(term)
     setup
     auth unless validate_jwt
     @conn.token_auth(@jwt)
@@ -43,7 +46,7 @@ module Timdex
     parse_results(json_results, response.status)
   end
 
-  def self.retrieve(id)
+  def retrieve(id)
     setup
     auth unless validate_jwt
     @conn.token_auth(@jwt)
@@ -55,7 +58,7 @@ module Timdex
     parse_record(json_result, response.status)
   end
 
-  def self.parse_record(json_result, status)
+  def parse_record(json_result, status)
     response = {}
     response['status'] = status
     response['record'] = Record.new(json_result)
@@ -63,7 +66,7 @@ module Timdex
     response
   end
 
-  def self.parse_results(json_results, status)
+  def parse_results(json_results, status)
     results = {}
     results['status'] = status
     results['hits'] = json_results['hits']
@@ -75,7 +78,7 @@ module Timdex
     results
   end
 
-  def self.validate_jwt
+  def validate_jwt
     return false unless @jwt
 
     decoded_token = JWT.decode(@jwt, nil, false)
