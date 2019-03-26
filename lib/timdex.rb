@@ -12,6 +12,7 @@ class Timdex
   TIMDEX_URL = TIMDEX_BASE + TIMDEX_VERSION
 
   def initialize(username, password)
+    @jwt = false
     @username = username
     @password = password
   end

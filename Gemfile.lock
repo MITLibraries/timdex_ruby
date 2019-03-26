@@ -10,12 +10,14 @@ GEM
     byebug (5.0.0)
       columnize (= 0.9.0)
     columnize (0.9.0)
+    dotenv (2.7.2)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     jwt (2.1.0)
     minitest (5.11.3)
     multipart-post (2.0.0)
     rake (10.5.0)
+    vcr (4.0.0)
 
 PLATFORMS
   ruby
@@ -23,10 +25,12 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 2)
   byebug (~> 5.0)
+  dotenv (~> 2)
   jwt
   minitest (~> 5.0)
   rake (~> 10.0)
   timdex-ruby!
+  vcr (~> 4)
 
 BUNDLED WITH
    2.0.1
