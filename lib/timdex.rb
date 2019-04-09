@@ -7,10 +7,6 @@ require 'jwt'
 
 # Timdex modules wraps interaction with the public TIMDEX API
 class Timdex
-  TIMDEX_BASE = 'https://timdex.mit.edu/api'.freeze
-  TIMDEX_VERSION = '/v1'.freeze
-  TIMDEX_URL = TIMDEX_BASE + TIMDEX_VERSION
-
   def initialize(username, password)
     @jwt = false
     @username = username
@@ -18,7 +14,8 @@ class Timdex
   end
 
   def setup
-    @conn = Faraday.new(url: TIMDEX_URL)
+    timdex_url = ENV.fetch('TIMDEX_URL', 'https://timdex.mit.edu')
+    @conn = Faraday.new(url: timdex_url)
   end
 
   def ping
