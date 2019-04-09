@@ -31,8 +31,8 @@ class Record
     @record['summary_holdings']
   end
 
-  def authors
-    @record['authors']
+  def contributors
+    @record['contributors']
   end
 
   def publication_date
