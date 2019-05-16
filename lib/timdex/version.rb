@@ -1,3 +1,3 @@
-module Timdex
-  VERSION = "0.1.0"
+class Timdex
+  VERSION = "0.1.4"
 end

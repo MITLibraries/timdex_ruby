@@ -9,3 +9,5 @@
 .byebug_history
 .env.development
 .env
+*.gem
+scratch.rb

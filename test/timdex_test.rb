@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class TimdexTest < Minitest::Test
   def test_that_it_has_a_version_number
@@ -7,13 +7,14 @@ class TimdexTest < Minitest::Test
 
   # /ping
   def test_ping
-    response = ::Timdex.ping
+    response = ::Timdex.new('fakeuser', 'fakepass').ping
     assert_equal('pong', response)
   end
 
   # /auth
   def test_auth
-    response = ::Timdex.auth
+    response = ::Timdex.new(ENV['TIMDEX_USER'],
+                            ENV['TIMDEX_PASS']).auth
 
     jwt = JWT.decode(response, nil, false)
     assert_equal(1, jwt[0]['user_id'])
@@ -21,7 +22,9 @@ class TimdexTest < Minitest::Test
 
   # /search
   def test_search
-    response = ::Timdex.search("popcorn")
+    response = ::Timdex.new(ENV['TIMDEX_USER'],
+                            ENV['TIMDEX_PASS']).search('popcorn')
+
     assert_equal(200, response['status'])
     assert(response['hits'])
   end
