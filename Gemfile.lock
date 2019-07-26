@@ -16,7 +16,7 @@ GEM
     jwt (2.1.0)
     minitest (5.11.3)
     multipart-post (2.0.0)
-    rake (10.5.0)
+    rake (12.3.3)
 
 PLATFORMS
   ruby
@@ -27,7 +27,7 @@ DEPENDENCIES
   dotenv (~> 2)
   jwt
   minitest (~> 5.0)
-  rake (~> 10.0)
+  rake (~> 12.3)
   timdex-ruby!
 
 BUNDLED WITH
