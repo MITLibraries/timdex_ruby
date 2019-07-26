@@ -7,9 +7,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    byebug (5.0.0)
-      columnize (= 0.9.0)
-    columnize (0.9.0)
+    byebug (11.0.1)
     dotenv (2.7.2)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
@@ -23,7 +21,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 2)
-  byebug (~> 5.0)
+  byebug (~> 11.0)
   dotenv (~> 2)
   jwt
   minitest (~> 5.0)
