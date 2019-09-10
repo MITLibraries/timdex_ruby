@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://timdex.mit.edu/api/v1/ping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - Cowboy
+      date:
+      - Tue, 10 Sep 2019 14:03:48 GMT
+      connection:
+      - close
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"1ea1381644aa60c66f490eb8f2e28fbf"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - b619ff6b-2ee4-47b3-bdc0-eab93f0f5940
+      x-runtime:
+      - '0.008387'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Origin
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '"pong"'
+    http_version: 
+  recorded_at: Tue, 10 Sep 2019 14:03:49 GMT
+recorded_with: VCR 5.0.0

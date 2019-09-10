@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Record
   def initialize(record)
     @record = record

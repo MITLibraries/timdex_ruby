@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://timdex.mit.edu/api/v1/auth
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Authorization:
+      - Basic ZmFrZTpwYXNzd29yZA==
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      server:
+      - Cowboy
+      date:
+      - Tue, 10 Sep 2019 14:05:10 GMT
+      connection:
+      - close
+      content-type:
+      - application/json; charset=utf-8
+      cache-control:
+      - no-cache
+      x-request-id:
+      - 643417d2-81be-49f2-9885-1f2de73985fe
+      x-runtime:
+      - '0.042627'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Origin
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"error" : "invalid credentials"}'
+    http_version: 
+  recorded_at: Tue, 10 Sep 2019 14:05:11 GMT
+recorded_with: VCR 5.0.0

@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://timdex.mit.edu/api/v1/auth
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Authorization:
+      - Basic Og==
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      server:
+      - Cowboy
+      date:
+      - Tue, 10 Sep 2019 14:06:30 GMT
+      connection:
+      - close
+      content-type:
+      - application/json; charset=utf-8
+      cache-control:
+      - no-cache
+      x-request-id:
+      - 00505165-8294-438e-85ee-842ea39ff196
+      x-runtime:
+      - '0.007241'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Origin
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"error" : "invalid credentials"}'
+    http_version: 
+  recorded_at: Tue, 10 Sep 2019 14:06:31 GMT
+- request:
+    method: get
+    uri: https://timdex.mit.edu/api/v1/record/000346597
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Authorization:
+      - Bearer {"error"=>"invalid credentials"}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - Cowboy
+      date:
+      - Tue, 10 Sep 2019 14:06:31 GMT
+      connection:
+      - close
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"ed7c43a20e685c077da5790b7a5428ef"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 047c5c58-36fb-45ae-a779-5c8ec13526ff
+      x-runtime:
+      - '0.069086'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Origin
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"request_limit":100,"request_count":2,"limit_info":"Register for a
+        free account and provide your JWT token to remove all request limitations.","id":"000346597","source":"MIT
+        Aleph","source_link":"https://library.mit.edu/item/000346597","full_record_link":"https://timdex.mit.edu/api/v1/record/000346597","content_type":"Text","content_format":["Print
+        volume"],"realtime_holdings_link":"Not Yet Implemented","publication_date":"1974","title":"Popcorn
+        Venus /","contributors":[{"kind":"author","value":"Rosen, Marjorie."}],"subjects":["Women
+        in motion pictures."],"summary_holdings":[{"location":"Hayden Library","collection":"Stacks","call_number":"PN1995.9.W6.R6
+        1974","format":"Print volume"}],"lccn":"73078740","oclcs":["03816312"],"isbns":["0380001772"],"imprint":["New
+        York : Avon, 1974, c1973."],"available":"Not Yet Implemented","place_of_publication":"New
+        York (State)","languages":["English"],"physical_description":"448 p., [16]
+        p. of plates : ports ; 18 cm.","notes":["Marjorie Rosen.","Includes index.","Bibliography:
+        p. 412-424."],"literary_form":"nonfiction"}'
+    http_version: 
+  recorded_at: Tue, 10 Sep 2019 14:06:31 GMT
+recorded_with: VCR 5.0.0

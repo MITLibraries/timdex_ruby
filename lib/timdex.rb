@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 require 'timdex/version'
-require 'dotenv/load'
 require 'record'
 require 'faraday'
 require 'json'
@@ -7,7 +8,7 @@ require 'jwt'
 
 # Timdex modules wraps interaction with the public TIMDEX API
 class Timdex
-  def initialize(username, password)
+  def initialize(username = nil, password = nil)
     @jwt = false
     @username = username
     @password = password
@@ -15,7 +16,10 @@ class Timdex
 
   def setup
     timdex_url = ENV.fetch('TIMDEX_URL', 'https://timdex.mit.edu')
-    @conn = Faraday.new(url: timdex_url)
+    @conn = Faraday.new(url: timdex_url) do |faraday|
+      faraday.response :logger if ENV['DEBUG']
+      faraday.adapter  Faraday.default_adapter
+    end
   end
 
   def ping
@@ -29,19 +33,36 @@ class Timdex
     @conn.basic_auth(@username, @password)
     response = @conn.get('/api/v1/auth')
 
-    @jwt = JSON.parse(response.body)
+    if response.status == 200
+      @jwt = JSON.parse(response.body)
+    else
+      @jwt = nil
+      JSON.parse(response.body)
+    end
+  end
+
+  def auth?
+    if @username.nil? || @password.nil?
+      false
+    else
+      true
+    end
   end
 
   def search(term)
     setup
-    auth unless validate_jwt
-    @conn.token_auth(@jwt)
+
+    if auth?
+      auth unless validate_jwt
+      @conn.token_auth(@jwt)
+    end
+
     response = @conn.get do |req|
       req.url '/api/v1/search', q: term
-      req.headers['Authorization'] = "Bearer #{@jwt}"
+      req.headers['Authorization'] = "Bearer #{@jwt}" if auth?
     end
-    json_results = JSON.parse(response.body)
-    parse_results(json_results, response.status)
+
+    parse_results(response.body, response.status)
   end
 
   def retrieve(id)
@@ -50,7 +71,7 @@ class Timdex
     @conn.token_auth(@jwt)
     response = @conn.get do |req|
       req.url '/api/v1/record/' + id
-      req.headers['Authorization'] = "Bearer #{@jwt}"
+      req.headers['Authorization'] = "Bearer #{@jwt}" if auth?
     end
     json_result = JSON.parse(response.body)
     parse_record(json_result, response.status)
@@ -64,7 +85,8 @@ class Timdex
     response
   end
 
-  def parse_results(json_results, status)
+  def parse_results(results, status)
+    json_results = JSON.parse(results)
     results = {}
     results['status'] = status
     results['hits'] = json_results['hits']
@@ -82,8 +104,9 @@ class Timdex
     decoded_token = JWT.decode(@jwt, nil, false)
     expires = decoded_token[0]['exp']
 
-    return @jwt if Time.now.to_i < expires
+    return true if Time.now.to_i < expires
 
     @jwt = nil
+    return false
   end
 end
