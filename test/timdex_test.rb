@@ -21,9 +21,11 @@ class TimdexTest < Minitest::Test
       # If you need to regenerate the cassette for this, modify these to real
       # values then scrub the cassette for sensitive info before committing.
       # You can leave the JWT as it expires relatively quickly.
-      response = Timdex.new('FAKEUSER', 'FAKEPASS').auth
-      jwt = JWT.decode(response, nil, false)
-      assert_equal(1, jwt[0]['user_id'])
+      Timecop.freeze(Time.local(2019, 9, 16, 10, 35, 0)) do
+        response = Timdex.new('FAKEUSER', 'FAKEPASS').auth
+        jwt = JWT.decode(response, nil, false)
+        assert_equal(1, jwt[0]['user_id'])
+      end
     end
   end
 
@@ -88,12 +90,14 @@ class TimdexTest < Minitest::Test
       # If you need to regenerate the cassette for this, modify these to real
       # values then scrub the cassette for sensitive info before committing.
       # You can leave the JWT as it expires relatively quickly.
-      t = Timdex.new('FAKEUSER', 'FAKEPASS')
-      t.auth
-      first_jwt = t.instance_variable_get(:@jwt)
-      response = t.search('stuff')
-      assert_equal(200, response['status'])
-      assert_equal(first_jwt, t.instance_variable_get(:@jwt))
+      Timecop.freeze(Time.local(2019, 9, 16, 10, 46, 0)) do
+        t = Timdex.new('FAKEUSER', 'FAKEPASS')
+        t.auth
+        first_jwt = t.instance_variable_get(:@jwt)
+        response = t.search('stuff')
+        assert_equal(200, response['status'])
+        assert_equal(first_jwt, t.instance_variable_get(:@jwt))
+      end
     end
   end
 
@@ -105,7 +109,7 @@ class TimdexTest < Minitest::Test
       t = Timdex.new('FAKEUSER', 'FAKEPASS')
       t.auth
       assert(t.validate_jwt)
-      Timecop.freeze(Date.today + 30) do
+      Timecop.freeze(Time.local(2112)) do
         refute(t.validate_jwt)
       end
     end

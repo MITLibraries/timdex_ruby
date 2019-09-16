@@ -107,6 +107,5 @@ class Timdex
     return true if Time.now.to_i < expires
 
     @jwt = nil
-    return false
   end
 end
