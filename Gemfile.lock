@@ -14,7 +14,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     jwt (2.1.0)
-    minitest (5.11.3)
+    minitest (5.14.4)
     multipart-post (2.0.0)
     rake (10.5.0)
 
