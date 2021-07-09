@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "dotenv", "~> 2"
   spec.add_development_dependency "jwt"
   spec.add_development_dependency "minitest", "~> 5.0"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rake", "~> 13.0"
   spec.add_dependency 'faraday', '~> 0'
 
 end
